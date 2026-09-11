@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prepare for a Teacher Interview</title><link rel="stylesheet" href="style.css"></head>
+<body><main>
+<h1>Prepare for a Teacher Interview</h1>
+<p class="intro">Build a small story bank you can reuse across different questions. Focus on what you actually did, why you made that choice, and what happened next.</p>
+
+<section class="step active" data-step="1">
+<div class="progress">Step 1 of 4</div>
+<h2>Start with the role</h2>
+<label for="role">Role or grade level</label>
+<input id="role" type="text" placeholder="Example: 4th grade teacher, secondary science, special education">
+<label for="posting">What seems most important in the job posting?</label>
+<textarea id="posting" placeholder="Paste a few phrases or list the responsibilities, skills, or priorities you keep seeing."></textarea>
+<p class="help">You do not need to paste the full posting. Look for repeated themes such as collaboration, differentiation, family communication, literacy, data use, or classroom culture.</p>
+<div class="btnrow"><button class="primary" onclick="go(2)">Next</button></div>
+</section>
+
+<section class="step" data-step="2">
+<div class="progress">Step 2 of 4</div>
+<h2>Choose the examples worth preparing</h2>
+<p>Select 4–6 topics that are most likely to matter for this role. You can prepare more later.</p>
+<div class="chips" id="topics"></div>
+<div class="btnrow"><button class="secondary" onclick="go(1)">Back</button><button class="primary" onclick="buildStories()">Build my story bank</button></div>
+</section>
+
+<section class="step" data-step="3">
+<div class="progress">Step 3 of 4</div>
+<h2>Build your story bank</h2>
+<p class="help">Student teaching, practicum, tutoring, coaching, camps, youth programs, jobs, leadership, and other experiences can all provide useful evidence.</p>
+<div id="storyForms"></div>
+<div class="btnrow"><button class="secondary" onclick="go(2)">Back</button><button class="primary" onclick="makeSummary()">Create my prep sheet</button></div>
+</section>
+
+<section class="step" data-step="4">
+<div class="progress">Step 4 of 4</div>
+<h2>Your interview prep sheet</h2>
+<div class="notice"><strong>Use this as talking points—not a script.</strong> In the interview, answer the actual question and choose the example that fits best.</div>
+<div id="summary" class="output"></div>
+<div class="btnrow"><button class="secondary" onclick="copyText('summary')">Copy</button><button class="secondary" onclick="window.print()">Print</button><button class="primary" onclick="go(2)">Prepare another example</button></div>
+</section>
+
+<div class="footer-nav"><a class="button secondary" href="index.html">Start page</a><a class="button secondary" href="school-district-research.html">Research the school & district</a><a class="button secondary" href="practice-question.html">Practice a question</a></div>
+</main>
+<script>
+const topicList=[
+["Student learning","A time you helped a student or group make progress"],
+["Classroom management","A time you established expectations, redirected behavior, or responded to a challenge"],
+["Differentiation","A time you adjusted instruction or support for different learner needs"],
+["Assessment","A time you checked understanding and changed what you did next"],
+["Relationships","A time you built trust or connection with students"],
+["Families","A time you communicated or partnered with a parent, caregiver, or family"],
+["Collaboration","A time you worked with a teacher, specialist, team, or colleague"],
+["Adaptability","A time something did not work and you adjusted"],
+["Inclusive classroom","A time you helped students feel included, represented, supported, or able to participate"],
+["Technology","A time you used a tool intentionally to support learning"],
+["Leadership","A time you took initiative, solved a problem, or helped move work forward"],
+["Other","Another example especially relevant to this role"]
+];
+const topics=document.getElementById('topics');
+topicList.forEach(([name,desc],i)=>{
+ let b=document.createElement('button'); b.className='chip'; b.type='button'; b.setAttribute('aria-pressed','false');
+ b.dataset.name=name;b.dataset.desc=desc;b.textContent=name;
+ b.onclick=()=>b.setAttribute('aria-pressed', b.getAttribute('aria-pressed')==='true'?'false':'true');
+ topics.appendChild(b);
+});
+function go(n){document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));document.querySelector(`[data-step="${n}"]`).classList.add('active');window.scrollTo(0,0)}
+function selected(){return [...document.querySelectorAll('.chip[aria-pressed=true]')].map(b=>({name:b.dataset.name,desc:b.dataset.desc}))}
+function buildStories(){
+ let s=selected(); if(!s.length){alert('Choose at least one topic.');return}
+ const wrap=document.getElementById('storyForms');wrap.innerHTML='';
+ s.forEach((t,i)=>{
+  wrap.insertAdjacentHTML('beforeend',`<div class="card">
+  <h3>${t.name}</h3><p class="help">${t.desc}</p>
+  <label>What example could you use?</label><textarea id="ex${i}" placeholder="Name the situation or experience."></textarea>
+  <label>What did you do?</label><textarea id="act${i}" placeholder="Focus on your decisions and actions—not just what the group did."></textarea>
+  <label>Why did you choose that approach?</label><textarea id="why${i}" placeholder="What were you considering about the students, learning goal, context, or challenge?"></textarea>
+  <label>What happened next?</label><textarea id="res${i}" placeholder="Result, student response, what changed, or what you learned."></textarea>
+  </div>`);
+ });
+ go(3);
+}
+function makeSummary(){
+ const s=selected(); const role=document.getElementById('role').value.trim(); const post=document.getElementById('posting').value.trim();
+ let text=(role?`ROLE: ${role}\n`:'')+(post?`POSTING PRIORITIES: ${post}\n`:'')+'\nSTORY BANK\n';
+ s.forEach((t,i)=>{
+  text+=`\n${t.name.toUpperCase()}\nExample: ${document.getElementById('ex'+i)?.value.trim()||'—'}\nWhat I did: ${document.getElementById('act'+i)?.value.trim()||'—'}\nWhy: ${document.getElementById('why'+i)?.value.trim()||'—'}\nResult / learning: ${document.getElementById('res'+i)?.value.trim()||'—'}\n`;
+ });
+ text+='\nQUICK REMINDER\nAnswer the question first. Use a specific example. Explain your decisions. Connect your answer back to students and learning when relevant.';
+ document.getElementById('summary').textContent=text;go(4);
+}
+function copyText(id){navigator.clipboard.writeText(document.getElementById(id).innerText)}
+</script></body></html>
