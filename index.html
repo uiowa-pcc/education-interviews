@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Educator Interview Practice</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section class="hero" aria-labelledby="page-title">
+      <p class="eyebrow">College of Education</p>
+      <h1 id="page-title">Practice for an educator interview</h1>
+      <p class="hero-copy">Get realistic interview questions, simple answer coaching, and a timer to help you practice clear, focused responses.</p>
+    </section>
+
+    <section id="setup-screen" class="card screen active" aria-labelledby="setup-title">
+      <div class="section-heading">
+        <div>
+          <p class="step-label">Step 1</p>
+          <h2 id="setup-title">Tell us a little about the role</h2>
+          <p>Everything here is optional. Skip anything you do not know.</p>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <label>
+          Role type
+          <select id="role-type">
+            <option value="">Not sure / skip</option>
+            <option value="elementary">Elementary</option>
+            <option value="secondary">Secondary</option>
+            <option value="specialty">Specialty area</option>
+            <option value="special-education">Special education</option>
+            <option value="school-counseling">School counseling</option>
+            <option value="student-services">Student services / support</option>
+          </select>
+        </label>
+
+        <label>
+          Grade level
+          <select id="grade-level">
+            <option value="">Not sure / skip</option>
+            <option value="early">PreK–2</option>
+            <option value="upper-elementary">3–5</option>
+            <option value="middle">6–8</option>
+            <option value="high">9–12</option>
+            <option value="multiple">Multiple grade levels</option>
+          </select>
+        </label>
+
+        <label>
+          Specialty / subject
+          <input id="subject-area" type="text" placeholder="e.g., math, art, PE, ELA, behavior" />
+        </label>
+
+        <label>
+          Interview stage
+          <select id="interview-stage">
+            <option value="">Not sure / skip</option>
+            <option value="screening">Initial / screening</option>
+            <option value="panel">Panel interview</option>
+            <option value="final">Final interview</option>
+          </select>
+        </label>
+      </div>
+
+      <fieldset class="focus-fieldset">
+        <legend>Anything this school seems to emphasize?</legend>
+        <p class="helper">Choose any that seem important based on the posting, school website, or your research.</p>
+        <div class="chip-grid" id="school-focus-options">
+          <label class="check-chip"><input type="checkbox" value="equity" /> <span>Belonging / equity</span></label>
+          <label class="check-chip"><input type="checkbox" value="behavior" /> <span>Behavior / PBIS</span></label>
+          <label class="check-chip"><input type="checkbox" value="sel" /> <span>SEL / student wellbeing</span></label>
+          <label class="check-chip"><input type="checkbox" value="inclusion" /> <span>Inclusive practices</span></label>
+          <label class="check-chip"><input type="checkbox" value="family" /> <span>Family engagement</span></label>
+          <label class="check-chip"><input type="checkbox" value="data" /> <span>Data-informed instruction</span></label>
+          <label class="check-chip"><input type="checkbox" value="collaboration" /> <span>Team collaboration</span></label>
+          <label class="check-chip"><input type="checkbox" value="technology" /> <span>Technology integration</span></label>
+        </div>
+      </fieldset>
+
+      <div class="actions bottom-actions">
+        <button class="button primary" id="start-practice">Start practice</button>
+        <button class="button secondary" id="skip-setup">Skip setup</button>
+      </div>
+    </section>
+
+    <section id="practice-screen" class="screen" aria-labelledby="practice-title">
+      <div class="practice-layout">
+        <div class="main-column">
+          <section class="card question-card practice-section">
+            <div class="question-topline">
+              <div>
+                <p class="step-label">1 · Your question</p>
+                <p class="question-meta" id="question-meta">General educator interview</p>
+              </div>
+              <button class="icon-button" id="reset-session" title="Start over" aria-label="Start over">↺</button>
+            </div>
+
+            <h2 id="practice-title" class="question-text">Tell us about yourself and what drew you to education.</h2>
+            <p class="try-first"><strong>Try it first:</strong> Answer this question out loud in your own words before opening any coaching. You are practicing how you think and respond — not memorizing a script.</p>
+          </section>
+
+          <section class="card timer-card practice-section" aria-labelledby="timer-heading">
+            <p class="step-label">2 · Time your answer</p>
+            <div class="timer-panel">
+              <div>
+                <h3 id="timer-heading">Aim for about 1–2 minutes</h3>
+                <p class="timer-label">Start when you begin speaking. The timer counts up from zero.</p>
+                <div class="timer-display" id="timer-display">0:00</div>
+                <p class="timer-status" id="timer-status">Suggested range: 1:00–2:00</p>
+              </div>
+              <div class="timer-actions">
+                <button class="button secondary small" id="timer-toggle">Start timer</button>
+                <button class="button ghost small" id="timer-reset">Reset</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="card advice-card practice-section" aria-labelledby="advice-heading">
+            <div class="advice-heading-row">
+              <div>
+                <p class="step-label">3 · Coach your answer</p>
+                <h3 id="advice-heading">Check your response after you try it</h3>
+                <p>Use these resources to strengthen your next attempt. They are here to coach you after you practice, not to give you a script.</p>
+              </div>
+              <button class="button secondary" id="show-help" type="button" aria-expanded="false" aria-controls="advice-content">Show coaching & resources</button>
+            </div>
+
+            <div class="advice-content hidden" id="advice-content">
+              <div class="response-guide" id="response-guide">
+                <h4>What a strong answer should do</h4>
+                <ul id="guide-list"></ul>
+              </div>
+
+              <div id="help-card">
+                <h4>Helpful ways to think about it</h4>
+                <div id="help-content"></div>
+              </div>
+
+              <div class="reflection-box">
+                <label for="practice-notes">What do you want to improve or remember?</label>
+                <textarea id="practice-notes" rows="5" placeholder="A stronger example, a point you forgot, or a phrase you want to say more clearly..."></textarea>
+              </div>
+            </div>
+          </section>
+
+          <div class="actions question-actions">
+            <button class="button primary" id="next-question">Give me another question</button>
+          </div>
+        </div>
+
+        <aside class="side-column">
+          <section class="card compact-card practice-goal-card">
+            <h3>How to use this practice</h3>
+            <ol class="mini-list numbered-list">
+              <li>Read the question.</li>
+              <li>Start the timer and answer it <strong>out loud on your own</strong>.</li>
+              <li>Then open the coaching and resources.</li>
+              <li>Try the question again if you want to improve your response.</li>
+            </ol>
+          </section>
+
+          <section class="card compact-card">
+            <h3>Interview reminders</h3>
+            <ul class="mini-list">
+              <li>Use specific examples when you can.</li>
+              <li>Explain what <strong>you</strong> did, not only what the team did.</li>
+              <li>Connect your answer back to students and learning.</li>
+              <li>Keep most responses around 1–2 minutes unless they ask for more detail.</li>
+            </ul>
+          </section>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js?v=4"></script>
+</body>
+</html>
